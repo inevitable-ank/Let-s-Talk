@@ -1,9 +1,7 @@
-"use client"
-
 import type React from "react"
 
 import { useState } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -49,7 +47,7 @@ export default function ForgotPasswordPage() {
                   </AlertDescription>
                 </Alert>
                 <Button asChild className="w-full">
-                  <Link href="/auth/login">Back to Login</Link>
+                  <Link to="/auth/login">Back to Login</Link>
                 </Button>
               </div>
             ) : (
@@ -71,7 +69,7 @@ export default function ForgotPasswordPage() {
                 </Button>
 
                 <div className="text-center text-sm">
-                  <Link href="/auth/login" className="text-primary hover:underline">
+                  <Link to="/auth/login" className="text-primary hover:underline">
                     Back to login
                   </Link>
                 </div>

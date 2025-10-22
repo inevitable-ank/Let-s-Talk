@@ -1,7 +1,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -67,7 +67,7 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium text-foreground">Password</label>
-                  <Link href="/auth/forgot-password" className="text-xs text-primary hover:underline">
+                  <Link to="/auth/forgot-password" className="text-xs text-primary hover:underline">
                     Forgot?
                   </Link>
                 </div>
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
             <div className="mt-6 text-center text-sm">
               <span className="text-foreground-secondary">Don't have an account? </span>
-              <Link href="/auth/signup" className="text-primary hover:underline font-medium">
+              <Link to="/auth/signup" className="text-primary hover:underline font-medium">
                 Sign up
               </Link>
             </div>
