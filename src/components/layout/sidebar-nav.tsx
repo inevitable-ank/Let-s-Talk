@@ -1,6 +1,5 @@
 
-import Link from "next/link"
-import { usePathname } from "next/Navigation"
+import { Link, useLocation } from "react-router-dom"
 import { MessageSquare, Settings, Search, Bell, HelpCircle, Zap, LogOut, ChevronLeft, ChevronRight } from "lucide-react"
 import { useSidebar } from "@/lib/sidebar-context"
 
@@ -14,7 +13,7 @@ const navItems = [
 ]
 
 export default function SidebarNav() {
-  const pathname = usePathname()
+  const location = useLocation()
   const { isCollapsed, toggleCollapse } = useSidebar()
 
   return (
@@ -45,11 +44,11 @@ export default function SidebarNav() {
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {navItems.map((item) => {
             const Icon = item.icon
-            const isActive = pathname === item.href
+            const isActive = location.pathname === item.href
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
                   isActive
                     ? "bg-primary text-white shadow-lg shadow-primary/20"
