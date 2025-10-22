@@ -1,9 +1,8 @@
-"use client"
 
 import type React from "react"
 
 import { useState } from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -137,7 +136,7 @@ export default function SignUpPage() {
                 />
                 <label htmlFor="terms" className="text-sm text-foreground-secondary cursor-pointer">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-primary hover:underline">
+                  <Link to="/terms" className="text-primary hover:underline">
                     terms and conditions
                   </Link>
                 </label>
@@ -150,7 +149,7 @@ export default function SignUpPage() {
 
             <div className="mt-6 text-center text-sm">
               <span className="text-foreground-secondary">Already have an account? </span>
-              <Link href="/auth/login" className="text-primary hover:underline font-medium">
+              <Link to="/auth/login" className="text-primary hover:underline font-medium">
                 Sign in
               </Link>
             </div>
