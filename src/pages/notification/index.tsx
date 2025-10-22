@@ -214,7 +214,7 @@ export default function NotificationsPage() {
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
                       <div className="flex-1">
-                        <Badge className={getTypeColor(notification.type)} variant="secondary" className="mb-2">
+                        <Badge className={`${getTypeColor(notification.type)} mb-2`} variant="secondary">
                           {notification.type}
                         </Badge>
                         <h3 className="font-semibold text-foreground">{notification.title}</h3>
@@ -234,7 +234,7 @@ export default function NotificationsPage() {
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
                       <div className="flex-1">
-                        <Badge className={getTypeColor(notification.type)} variant="secondary" className="mb-2">
+                        <Badge className={`${getTypeColor(notification.type)} mb-2`} variant="secondary">
                           {notification.type}
                         </Badge>
                         <h3 className="font-semibold text-foreground">{notification.title}</h3>
