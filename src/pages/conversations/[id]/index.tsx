@@ -1,15 +1,15 @@
-"use client"
 
 import { useState } from "react"
+import { Link, useParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Share2, Archive, Trash2, Download } from "lucide-react"
-import Link from "next/link"
 
-export default function ConversationDetailsPage({ params }: { params: { id: string } }) {
+export default function ConversationDetailsPage() {
+  const { id } = useParams<{ id: string }>()
   const [conversation] = useState({
-    id: params.id,
+    id: id,
     title: "Product Launch Planning",
     description: "Discussion about Q4 product launch strategy and timeline",
     createdAt: new Date("2024-01-15"),
@@ -30,7 +30,7 @@ export default function ConversationDetailsPage({ params }: { params: { id: stri
       <div className="max-w-4xl mx-auto p-6">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <Link href="/">
+          <Link to="/">
             <Button variant="ghost" size="icon">
               <ArrowLeft className="w-5 h-5" />
             </Button>

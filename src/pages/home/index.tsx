@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import ConversationList from "@/components/chat/conversation-list"
