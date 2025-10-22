@@ -1,5 +1,3 @@
-"use client"
-
 import { useSidebar } from "@/lib/sidebar-context"
 import { MessageProvider } from "@/lib/message-context"
 import { LCGProvider } from "@/lib/lcg-context"
