@@ -100,7 +100,7 @@ export default function NotificationsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-3xl mx-auto p-6">
+      <div className="w-full p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
