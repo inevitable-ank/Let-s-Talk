@@ -1,6 +1,6 @@
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/Navigation"
 import { MessageSquare, Settings, Search, Bell, HelpCircle, Zap, LogOut, ChevronLeft, ChevronRight } from "lucide-react"
 import { useSidebar } from "@/lib/sidebar-context"
 
