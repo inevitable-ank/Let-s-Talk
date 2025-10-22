@@ -1,69 +1,116 @@
-
-
-import { Zap, X } from "lucide-react"
 import { useState } from "react"
-import { useTasks } from "@/lib/task-context"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { X, CheckCircle, Clock, AlertCircle } from "lucide-react"
 
 interface TaskExtractionPanelProps {
-  messageContent: string
   messageId: string
-  conversationId: string
   onClose: () => void
 }
 
-export default function TaskExtractionPanel({
-  messageContent,
-  messageId,
-  conversationId,
-  onClose,
-}: TaskExtractionPanelProps) {
-  const { extractTasksFromMessage } = useTasks()
-  const [isExtracting, setIsExtracting] = useState(false)
+interface ExtractedTask {
+  id: string
+  title: string
+  description: string
+  priority: "high" | "medium" | "low"
+  dueDate?: string
+  assignee?: string
+  status: "pending" | "in-progress" | "completed"
+}
 
-  const handleExtract = async () => {
-    setIsExtracting(true)
-    // Simulate extraction delay
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    extractTasksFromMessage(messageContent, conversationId, messageId)
-    setIsExtracting(false)
-    onClose()
+export default function TaskExtractionPanel({ onClose }: TaskExtractionPanelProps) {
+  const [extractedTasks] = useState<ExtractedTask[]>([
+    {
+      id: "1",
+      title: "Review product launch timeline",
+      description: "Analyze the proposed timeline and provide feedback on feasibility",
+      priority: "high",
+      dueDate: "2024-01-25",
+      assignee: "Sarah Chen",
+      status: "pending"
+    },
+    {
+      id: "2", 
+      title: "Prepare marketing materials",
+      description: "Create promotional content for the Q4 product launch",
+      priority: "medium",
+      dueDate: "2024-01-30",
+      assignee: "Mike Johnson",
+      status: "in-progress"
+    },
+    {
+      id: "3",
+      title: "Schedule team meeting",
+      description: "Organize a meeting to discuss launch strategy",
+      priority: "low",
+      dueDate: "2024-01-22",
+      status: "completed"
+    }
+  ])
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case "high": return "destructive"
+      case "medium": return "default"
+      case "low": return "secondary"
+      default: return "secondary"
+    }
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "completed": return <CheckCircle className="w-4 h-4 text-green-500" />
+      case "in-progress": return <Clock className="w-4 h-4 text-blue-500" />
+      default: return <AlertCircle className="w-4 h-4 text-yellow-500" />
+    }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-background border border-border rounded-lg p-6 max-w-md w-full mx-4">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Zap className="w-5 h-5 text-primary" />
-            Extract Tasks
-          </h3>
-          <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
-            <X className="w-4 h-4" />
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Extracted Tasks</CardTitle>
+          <CardDescription>AI has identified the following actionable tasks from this message</CardDescription>
+        </div>
+        <Button variant="ghost" size="icon" onClick={onClose}>
+          <X className="w-4 h-4" />
+        </Button>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {extractedTasks.map((task) => (
+          <div key={task.id} className="flex items-start gap-3 p-3 border border-border rounded-lg">
+            <div className="flex-shrink-0 mt-1">
+              {getStatusIcon(task.status)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <h4 className="font-medium text-sm text-foreground">{task.title}</h4>
+                <Badge variant={getPriorityColor(task.priority)} className="text-xs">
+                  {task.priority}
+                </Badge>
+              </div>
+              <p className="text-xs text-foreground-secondary mb-2">{task.description}</p>
+              <div className="flex items-center gap-4 text-xs text-foreground-secondary">
+                {task.dueDate && (
+                  <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+                )}
+                {task.assignee && (
+                  <span>Assigned to: {task.assignee}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="flex gap-2 pt-2">
+          <Button size="sm" className="flex-1">
+            Add All Tasks
+          </Button>
+          <Button variant="outline" size="sm" onClick={onClose}>
+            Close
           </Button>
         </div>
-
-        <p className="text-sm text-foreground-secondary mb-4">
-          Extract actionable tasks from this message and add them to your task list.
-        </p>
-
-        <div className="bg-surface-secondary rounded p-3 mb-6 max-h-32 overflow-y-auto">
-          <p className="text-sm text-foreground">{messageContent}</p>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={onClose} className="flex-1 bg-transparent">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleExtract}
-            disabled={isExtracting}
-            className="flex-1 bg-primary hover:bg-primary-dark text-white"
-          >
-            {isExtracting ? "Extracting..." : "Extract Tasks"}
-          </Button>
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

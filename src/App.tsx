@@ -3,9 +3,11 @@ import { SidebarProvider } from "@/lib/sidebar-context"
 import { MessageProvider } from "@/lib/message-context"
 import { UserProvider } from "@/lib/user-context"
 import { TaskProvider } from "@/lib/task-context"
+import { LCGProvider } from "@/lib/lcg-context"
 import AppShell from "@/components/layout/app-shell"
 import SidebarNav from "@/components/layout/sidebar-nav"
 import MainContent from "@/components/layout/main-content"
+import { Toaster } from "@/components/ui/sonner"
 import Home from "@/pages/home"
 import ConversationDetailsPage from "@/pages/conversations/[id]"
 
@@ -16,7 +18,8 @@ function App() {
         <MessageProvider>
           <UserProvider>
             <TaskProvider>
-              <AppShell>
+              <LCGProvider>
+                <AppShell>
                 <div className="flex h-screen">
                   <SidebarNav />
                   <MainContent>
@@ -26,7 +29,9 @@ function App() {
                     </Routes>
                   </MainContent>
                 </div>
-              </AppShell>
+                <Toaster />
+                </AppShell>
+              </LCGProvider>
             </TaskProvider>
           </UserProvider>
         </MessageProvider>

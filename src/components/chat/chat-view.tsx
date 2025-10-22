@@ -23,9 +23,9 @@ export default function ChatView({ conversationId }: ChatViewProps) {
     content: string
   } | null>(null)
   const [isTyping, setIsTyping] = useState(false)
-  const [typingUsers, setTypingUsers] = useState<string[]>([])
+  const [typingUsers] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const typingTimeoutRef = useRef<NodeJS.Timeout>()
+  const typingTimeoutRef = useRef<number | undefined>(undefined)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -168,9 +168,7 @@ export default function ChatView({ conversationId }: ChatViewProps) {
 
       {extractionMessage && (
         <TaskExtractionPanel
-          messageContent={extractionMessage.content}
           messageId={extractionMessage.id}
-          conversationId={conversationId}
           onClose={() => setExtractionMessage(null)}
         />
       )}
